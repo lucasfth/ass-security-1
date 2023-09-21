@@ -37,11 +37,11 @@ def intercept(fst_par, c):
             private_key = d
             break
 
-    print("Guessed private key: ", private_key)
+    # print("Guessed private key: ", private_key)
+    inverse_s = fst_par**(p-1-private_key)
+    m = inverse_s * c % p
 
-    m = c / ((fst_par**private_key) % p)
-
-    print("Intercepted message: ", m)
+    print("Intercepted pk: ", private_key, " m:", m)
 
     return m
 
