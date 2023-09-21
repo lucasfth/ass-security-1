@@ -37,7 +37,6 @@ def intercept(fst_par, c):
             private_key = d
             break
 
-    # print("Guessed private key: ", private_key)
     inverse_s = fst_par**(p-1-private_key)
     m = inverse_s * c % p
 
