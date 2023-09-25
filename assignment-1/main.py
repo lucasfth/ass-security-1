@@ -18,17 +18,17 @@ def encrypt():
     y = random.randint(1, p-1)
 
     # g^y mod p
-    fst_par = (g**y) % p
+    c1 = (g**y) % p
 
     # encrypted message
-    c = ((PK**y) * M) % p
+    c2 = ((PK**y) * M) % p
 
-    print("Alice sends: ", fst_par, c)
+    print("Alice sends: ", c1, c2)
 
-    return fst_par, c
+    return c1, c2
 
 
-def intercept(fst_par, c):
+def intercept(c1, c2):
 
     private_key = 0
 
@@ -37,17 +37,29 @@ def intercept(fst_par, c):
             private_key = d
             break
 
-    inverse_s = fst_par**(p-1-private_key)
-    m = inverse_s * c % p
+    inverse_s = c1**(p-1-private_key)
+    m = inverse_s * c2 % p
 
     print("Intercepted pk: ", private_key, " m:", m)
 
     return m
 
 
+def modify(c1, c2):
+
+    modified = (c2*2) % p
+
+    decrypt = c1**(p-1-66) * modified % p
+
+    print("Modified: ", c1, decrypt)
+
+    return c1, modified
+
+
 def main():
-    fst_par, c = encrypt()
-    intercept(fst_par, c)
+    c1, c2 = encrypt()
+    intercept(c1, c2)
+    modify(c1, c2)
 
 
 if __name__ == "__main__":
