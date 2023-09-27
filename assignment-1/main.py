@@ -1,19 +1,11 @@
 import random
 
-# public shared base
-g = 666
 
-# public shared prime
-p = 6661
-
-# Bob public key
-PK = 2227
-
-# Alice message
-M = 2000
+def prt(g, p, PK, p1, p2, p3):
+    print(p1, "\t[", g, ",", p, ",", PK, ",", p2, ",", p3, "]")
 
 
-def encrypt():
+def encrypt(g, p, PK, M):
     # Alice´s y
     y = random.randint(1, p-1)
 
@@ -23,12 +15,10 @@ def encrypt():
     # encrypted message
     c2 = ((PK**y) * M) % p
 
-    print("Alice sends: ", c1, c2)
-
-    return c1, c2
+    return "Alice sends:", c1, c2
 
 
-def intercept(c1, c2):
+def intercept(g, p, PK, c1, c2):
 
     private_key = 0
 
@@ -40,26 +30,35 @@ def intercept(c1, c2):
     inverse_s = c1**(p-1-private_key)
     m = inverse_s * c2 % p
 
-    print("Intercepted pk: ", private_key, " m:", m)
-
-    return m
+    return "Intercepted:", private_key, m
 
 
-def modify(c1, c2):
+def modify(p, c1, c2):
 
     modified = (c2*2) % p
 
-    decrypt = c1**(p-1-66) * modified % p
-
-    print("Modified: ", c1, decrypt)
-
-    return c1, modified
+    return "Modified", c1, modified
 
 
 def main():
-    c1, c2 = encrypt()
-    intercept(c1, c2)
-    modify(c1, c2)
+    g = 666  # public shared base
+    p = 6661  # public shared prime
+    PK = 2227  # Bob public key
+    M = 2000  # Alice message
+
+    print("\n")
+    str, c1, c2 = encrypt(g, p, PK, M)
+    prt(g, p, PK, str, c1, c2)
+    print("\n")
+
+    str, a, b = intercept(g, p, PK, c1, c2)
+    prt(g, p, PK, str, a, b)
+    print("\n")
+
+    str, a, c2m = modify(p, c1, c2)
+    prt(g, p, PK, str, a, b)
+    _, a, b = intercept(g, p, PK, c1, c2m)
+    prt(g, p, PK, "Decrypted´", a, b)
 
 
 if __name__ == "__main__":
