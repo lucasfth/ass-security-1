@@ -1,6 +1,6 @@
 # Report
 
-By Lucas Hanson
+Made by: Lucas Hanson (luha@itu.dk) for the course Security 1 at ITU.
 
 ## Approach
 
