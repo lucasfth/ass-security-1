@@ -40,3 +40,19 @@ This then gives a decrypted message.
 Now Weave wants to modify the message.
 I just tried to multiply the message with two and modulo the prime (for good measure).
 This worked and when the message was decrypted it was 4000.
+
+## Results
+
+The results of the program can be seen below:
+
+![result](attachments/results.png)
+
+In each of the outputs the first part of the output has the following format:
+
+| Description | Public shared base | Public shared prime | Bob's public key
+| --- | --- | --- | --- |
+
+The rest of the output is different based on the method which is running.\
+For Alice the last two fields are the c1 and c2.\
+For Eve that intercepts the message it is the private key of Bob (which has been brute forced) and the decrypted message.\
+For Weave that modifies the message it is the same c1 that Alice used and the modified c2. After that I decrypted it for good measure to show that it worked.
