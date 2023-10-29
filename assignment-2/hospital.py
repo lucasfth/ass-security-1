@@ -16,8 +16,6 @@ class Hospital:
 
     # Aggregate values summed
     def aggregate(self):
-        if len(self.aggregate_values) < 3:
-            return
         aggregate = sum(self.aggregate_values)
         print(f"Hospitals aggregate sum: {aggregate}")
         sys.exit()
@@ -34,8 +32,8 @@ class Hospital:
 
         s = context.wrap_socket(s)
 
-        # Recieve message from 4 clients
-        for _ in range(4):
+        # Recieve message from 3 clients
+        for _ in range(3):
             # print("Hospital waiting for connection...")
             client, address = s.accept()
             data = client.recv(8)
