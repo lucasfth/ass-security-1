@@ -62,6 +62,10 @@ But for ease of use I have included them in the repository/folder.
 
 ## Limitations
 
+I assumed that there are passive adversaries.
+If they where active the peers and hospital could end up with incorrect values.
+I also assumed that the peers would not be malicious, which would result in incorrect values as well.
+
 There is a problem with the hospital calculating the incorrect sum (though it rarely happens).
 I am not entirely sure where the issue stems from.
 But I know that I would have to module with the max somewhere I am not currently.
